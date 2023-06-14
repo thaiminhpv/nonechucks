@@ -9,7 +9,7 @@ class SafeDataset(torch.utils.data.Dataset):
     samples dynamically.
     """
 
-    def __init__(self, dataset, eager_eval=False):
+    def __init__(self, dataset, eager_eval=False, cache_return_values=True):
         """Creates a `SafeDataset` wrapper around `dataset`."""
         self.dataset = dataset
         self.eager_eval = eager_eval
@@ -23,6 +23,13 @@ class SafeDataset(torch.utils.data.Dataset):
         # by attempting to access every sample in self.dataset.
         if self.eager_eval is True:
             self._build_index()
+        
+        # If cache_return_values is True, we will cache the return values of
+        # __getitem__ in a dictionary. This is can be disabled if the dataset
+        # is too large and the return values are too large to be cached.
+        self.cache_return_values = cache_return_values
+        self.__getitem__ = memoize(self.__getitem__) if self.cache_return_values else self.__getitem__
+
 
     def _safe_get_item(self, idx):
         """Returns None instead of throwing an error when dealing with an
@@ -83,7 +90,6 @@ class SafeDataset(torch.utils.data.Dataset):
             if self._safe_get_item(i) is not None
         )
 
-    @memoize
     def __getitem__(self, idx):
         """Behaves like the standard __getitem__ for Dataset when the index
         has been built.
