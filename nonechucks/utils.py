@@ -9,7 +9,7 @@ try:
     from torch.utils.data.dataloader import default_collate
 except ImportError:
     from torch.utils.data._utils.collate import default_collate
-from torch._six import string_classes
+# from torch._six import string_classes
 
 
 class memoize(object):
@@ -64,26 +64,26 @@ def collate_batches(batches, collate_fn=default_collate):
     raise TypeError((error_msg.format(type(batches[0]))))
 
 
-def batch_len(batch):
-    # error_msg = "batch must be tensor, dict, or list: found {}"
-    if isinstance(batch, list):
-        if isinstance(batch[0], string_classes):
-            return len(batch)
-        else:
-            return len(batch[0])
-    elif isinstance(batch, collections.Mapping):
-        first_key = list(batch.keys())[0]
-        return len(batch[first_key])
-    return len(batch)
+# def batch_len(batch):
+#     # error_msg = "batch must be tensor, dict, or list: found {}"
+#     if isinstance(batch, list):
+#         if isinstance(batch[0], string_classes):
+#             return len(batch)
+#         else:
+#             return len(batch[0])
+#     elif isinstance(batch, collections.Mapping):
+#         first_key = list(batch.keys())[0]
+#         return len(batch[first_key])
+#     return len(batch)
 
 
-def slice_batch(batch, start=None, end=None):
-    if isinstance(batch, list):
-        if isinstance(batch[0], string_classes):
-            return batch[start:end]
-        else:
-            return [sample[start:end] for sample in batch]
-    elif isinstance(batch[0], collections.Mapping):
-        return {key: batch[key][start:end] for key in batch}
-    else:
-        return batch[start:end]
+# def slice_batch(batch, start=None, end=None):
+#     if isinstance(batch, list):
+#         if isinstance(batch[0], string_classes):
+#             return batch[start:end]
+#         else:
+#             return [sample[start:end] for sample in batch]
+#     elif isinstance(batch[0], collections.Mapping):
+#         return {key: batch[key][start:end] for key in batch}
+#     else:
+#         return batch[start:end]
