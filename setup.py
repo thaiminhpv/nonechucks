@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="nonechucks",
-    version="0.4.3",
+    version="0.4.4",
     url="https://github.com/msamogh/nonechucks",
     license="MIT",
     author="Amogh Mannekote",
