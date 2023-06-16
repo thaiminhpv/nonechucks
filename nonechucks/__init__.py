@@ -26,18 +26,18 @@ def _get_pytorch_version():
 
 MAJOR, MINOR = _get_pytorch_version()
 
-if MINOR > 1:
-    SingleProcessDataLoaderIter = (
-        torch.utils.data.dataloader._SingleProcessDataLoaderIter
-    )
-    MultiProcessingDataLoaderIter = (
-        torch.utils.data.dataloader._MultiProcessingDataLoaderIter
-    )
-else:
-    SingleProcessDataLoaderIter = torch.utils.data.dataloader._DataLoaderIter
-    MultiProcessingDataLoaderIter = torch.utils.data.dataloader._DataLoaderIter
+# if MINOR > 1:
+#     SingleProcessDataLoaderIter = (
+#         torch.utils.data.dataloader._SingleProcessDataLoaderIter
+#     )
+#     MultiProcessingDataLoaderIter = (
+#         torch.utils.data.dataloader._MultiProcessingDataLoaderIter
+#     )
+# else:
+#     SingleProcessDataLoaderIter = torch.utils.data.dataloader._DataLoaderIter
+#     MultiProcessingDataLoaderIter = torch.utils.data.dataloader._DataLoaderIter
 
 
 from nonechucks.dataset import SafeDataset
-from nonechucks.sampler import SafeSampler
-from nonechucks.dataloader import SafeDataLoader
+# frm nonechucks.sampler import SafeSampler
+# from nonechucks.dataloader import SafeDataLoader
